@@ -1,12 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Car
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
 from django import forms
+from django.contrib.auth.models import User
 
 def home(request):
     cars = Car.objects.all()
@@ -69,6 +70,41 @@ class ContactForm(forms.Form):
         'rows': 5
     }))
 
+class SignUpForm(UserCreationForm):
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'your.email@example.com'
+    }))
+    first_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'First name'
+    }))
+    last_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Last name'
+    }))
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
+        widgets = {
+            'username': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Choose a username'
+            }),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password1'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Create a password'
+        })
+        self.fields['password2'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Confirm your password'
+        })
+
 def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -113,6 +149,33 @@ def login_view(request):
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
+
+def signup_view(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.email = form.cleaned_data.get('email')
+            user.first_name = form.cleaned_data.get('first_name')
+            user.last_name = form.cleaned_data.get('last_name')
+            user.save()
+            
+            # Log the user in automatically after signup
+            login(request, user)
+            messages.success(request, f"Welcome {user.first_name}! Your account has been created successfully.")
+            # Redirect to the page they were on, or home if no referrer
+            next_url = request.POST.get('next') or request.META.get('HTTP_REFERER') or 'home'
+            return redirect(next_url)
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field.title()}: {error}")
+            # Redirect back to the page they were on
+            next_url = request.POST.get('next') or request.META.get('HTTP_REFERER') or 'home'
+            return redirect(next_url)
+    else:
+        form = SignUpForm()
+    return render(request, 'signup.html', {'form': form})
 
 def logout_view(request):
     if request.method == 'POST':

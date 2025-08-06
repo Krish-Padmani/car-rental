@@ -50,6 +50,11 @@
                             <i class="fas fa-sign-in-alt me-1"></i>Login
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#signupModal">
+                            <i class="fas fa-user-plus me-1"></i>Sign Up
+                        </a>
+                    </li>
                 {% endif %}
             </ul>
         </div>
@@ -128,7 +133,135 @@
                 <div class="text-center mt-3">
                     <p class="small text-muted">
                         Don't have an account? 
-                        <a href="#" class="text-decoration-none">Sign up here</a>
+                        <a href="#" class="text-decoration-none" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#signupModal">Sign up here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Signup Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0 pb-0">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-5 pb-5">
+                <!-- Logo/Title -->
+                <div class="text-center mb-4">
+                    <div class="bg-success rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" 
+                         style="width: 60px; height: 60px;">
+                        <i class="fas fa-user-plus text-white fa-lg"></i>
+                    </div>
+                    <h4 class="text-success">Join CarRental</h4>
+                    <p class="text-muted">Create your account today</p>
+                </div>
+
+                <!-- Signup Form -->
+                <form id="signupForm" method="post" action="{% url 'signup' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                    
+                    <!-- Name Fields -->
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="first_name" class="form-label">First Name</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <input type="text" name="first_name" class="form-control" 
+                                       id="first_name" placeholder="First name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="last_name" class="form-label">Last Name</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <input type="text" name="last_name" class="form-control" 
+                                       id="last_name" placeholder="Last name" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Username Field -->
+                    <div class="mb-3">
+                        <label for="signup_username" class="form-label">Username</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-at"></i>
+                            </span>
+                            <input type="text" name="username" class="form-control" 
+                                   id="signup_username" placeholder="Choose a username" required>
+                        </div>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                            <input type="email" name="email" class="form-control" 
+                                   id="email" placeholder="your.email@example.com" required>
+                        </div>
+                    </div>
+
+                    <!-- Password Fields -->
+                    <div class="mb-3">
+                        <label for="password1" class="form-label">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                            <input type="password" name="password1" class="form-control" 
+                                   id="password1" placeholder="Create a password" required>
+                            <button class="btn btn-outline-secondary" type="button" onclick="toggleSignupPassword1()">
+                                <i class="fas fa-eye" id="toggleSignupIcon1"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="password2" class="form-label">Confirm Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                            <input type="password" name="password2" class="form-control" 
+                                   id="password2" placeholder="Confirm your password" required>
+                            <button class="btn btn-outline-secondary" type="button" onclick="toggleSignupPassword2()">
+                                <i class="fas fa-eye" id="toggleSignupIcon2"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Terms -->
+                    <div class="mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                            <label class="form-check-label small" for="agreeTerms">
+                                I agree to the <a href="#" class="text-decoration-none">Terms of Service</a> and <a href="#" class="text-decoration-none">Privacy Policy</a>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Signup Button -->
+                    <button type="submit" class="btn btn-success w-100 btn-lg mb-3">
+                        <i class="fas fa-user-plus me-2"></i>Create Account
+                    </button>
+                </form>
+
+                <!-- Login Link -->
+                <div class="text-center mt-3">
+                    <p class="small text-muted">
+                        Already have an account? 
+                        <a href="#" class="text-decoration-none" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#loginModal">Sign in here</a>
                     </p>
                 </div>
             </div>
@@ -202,12 +335,51 @@ function toggleModalPassword() {
     }
 }
 
-// Auto-focus on username field when modal opens
+// Toggle password visibility in signup modal
+function toggleSignupPassword1() {
+    const passwordInput = document.getElementById('password1');
+    const toggleIcon = document.getElementById('toggleSignupIcon1');
+    
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.classList.remove('fa-eye');
+        toggleIcon.classList.add('fa-eye-slash');
+    } else {
+        passwordInput.type = 'password';
+        toggleIcon.classList.remove('fa-eye-slash');
+        toggleIcon.classList.add('fa-eye');
+    }
+}
+
+function toggleSignupPassword2() {
+    const passwordInput = document.getElementById('password2');
+    const toggleIcon = document.getElementById('toggleSignupIcon2');
+    
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.classList.remove('fa-eye');
+        toggleIcon.classList.add('fa-eye-slash');
+    } else {
+        passwordInput.type = 'password';
+        toggleIcon.classList.remove('fa-eye-slash');
+        toggleIcon.classList.add('fa-eye');
+    }
+}
+
+// Auto-focus on username field when login modal opens
 document.addEventListener('DOMContentLoaded', function() {
     const loginModal = document.getElementById('loginModal');
     if (loginModal) {
         loginModal.addEventListener('shown.bs.modal', function () {
             document.getElementById('username').focus();
+        });
+    }
+    
+    // Auto-focus on first name field when signup modal opens
+    const signupModal = document.getElementById('signupModal');
+    if (signupModal) {
+        signupModal.addEventListener('shown.bs.modal', function () {
+            document.getElementById('first_name').focus();
         });
     }
 });
