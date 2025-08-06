@@ -4,10 +4,8 @@ class Car(models.Model):
     CAR_TYPES = [
         ('Sedan', 'Sedan'),
         ('SUV', 'SUV'),
-        ('Truck', 'Truck'),
-        ('Van', 'Van'),
-        ('Coupe', 'Coupe'),
-    ]
+        ('Sport', 'Sport'),]
+        
 
     name = models.CharField(max_length=100)
     car_type = models.CharField(max_length=50, choices=CAR_TYPES)
