@@ -101,10 +101,15 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            messages.success(request, "Logged in successfully!")
-            return redirect('home')
+            messages.success(request, "Welcome back! You have been logged in successfully.")
+            # Redirect to the page they were on, or home if no referrer
+            next_url = request.POST.get('next') or request.META.get('HTTP_REFERER') or 'home'
+            return redirect(next_url)
         else:
             messages.error(request, "Invalid username or password. Please try again.")
+            # Redirect back to the page they were on
+            next_url = request.POST.get('next') or request.META.get('HTTP_REFERER') or 'home'
+            return redirect(next_url)
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
