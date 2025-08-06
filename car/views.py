@@ -22,6 +22,15 @@ def about(request):
     return render(request, 'about.html')
 
 def contact(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+        if name and email and message:
+            # Here you could add logic to send an email or save the message
+            messages.success(request, 'Your message has been sent!')
+        else:
+            messages.error(request, 'Please fill in all fields.')
     return render(request, 'contact.html')
 
 def login_view(request):
@@ -30,6 +39,10 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
+            if request.POST.get('remember_me'):
+                request.session.set_expiry(1209600)  # 2 weeks
+            else:
+                request.session.set_expiry(0)  # Browser close
             messages.success(request, "Logged in successfully!")
             return redirect('home')
     else:

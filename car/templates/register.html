@@ -1,10 +1,29 @@
 {% extends 'base.html' %}
 {% block title %}Register{% endblock %}
 {% block content %}
-<h2>Register</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-success">Register</button>
-</form>
+<div class="container mt-5" style="max-width: 400px;">
+    <h2 class="mb-4 text-center">Register</h2>
+    <form method="post" class="card card-body shadow">
+        {% csrf_token %}
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div>{{ error }}</div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div>{{ error }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {{ form.username.label_tag }}
+        {{ form.username|add_class:'form-control mb-3' }}
+        {{ form.password1.label_tag }}
+        {{ form.password1|add_class:'form-control mb-3' }}
+        {{ form.password2.label_tag }}
+        {{ form.password2|add_class:'form-control mb-3' }}
+        <button type="submit" class="btn btn-success w-100">Register</button>
+    </form>
+</div>
 {% endblock %}
