@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}All Cars{% endblock %}
+{% block content %}
+<h2>All Available Cars</h2>
+<div class="row">
+    {% for car in cars %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            {% if car.image %}
+            <img src="{{ car.image.url }}" class="card-img-top" alt="{{ car.name }}">
+            {% endif %}
+            <div class="card-body">
+                <h5>{{ car.name }}</h5>
+                <p>Type: {{ car.car_type }}<br>Price: ${{ car.price_per_day }}</p>
+                <a href="{% url 'car_detail' car.id %}" class="btn btn-info">Details</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No cars found.</p>
+    {% endfor %}
+</div>
+{% endblock %}

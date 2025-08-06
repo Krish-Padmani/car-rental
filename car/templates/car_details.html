@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ car.name }} Details{% endblock %}
+{% block content %}
+<div class="card">
+    {% if car.image %}
+    <img src="{{ car.image.url }}" class="card-img-top" alt="{{ car.name }}">
+    {% endif %}
+    <div class="card-body">
+        <h2>{{ car.name }}</h2>
+        <p>Type: {{ car.car_type }}</p>
+        <p>Price per day: ${{ car.price_per_day }}</p>
+        <a href="#" class="btn btn-success">Book Now</a>
+    </div>
+</div>
+{% endblock %}
