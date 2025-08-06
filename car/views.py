@@ -4,6 +4,9 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings
+from django import forms
 
 def home(request):
     cars = Car.objects.all()
@@ -11,7 +14,34 @@ def home(request):
 
 def car_list(request):
     cars = Car.objects.all()
-    return render(request, 'car_list.html', {'cars': cars})
+    
+    # Filter by car type
+    car_type = request.GET.get('car_type')
+    if car_type:
+        cars = cars.filter(car_type=car_type)
+    
+    # Filter by maximum price
+    max_price = request.GET.get('max_price')
+    if max_price:
+        cars = cars.filter(price_per_day__lte=max_price)
+    
+    # Search by name
+    search_query = request.GET.get('search')
+    if search_query:
+        cars = cars.filter(name__icontains=search_query)
+    
+    # Get unique car types for filter dropdown
+    car_types = Car.objects.values_list('car_type', flat=True).distinct()
+    
+    context = {
+        'cars': cars,
+        'car_types': car_types,
+        'current_type': car_type,
+        'current_max_price': max_price,
+        'current_search': search_query,
+    }
+    
+    return render(request, 'car_list.html', context)
 
 def car_detail(request, car_id):
     car = get_object_or_404(Car, id=car_id)
@@ -20,8 +50,50 @@ def car_detail(request, car_id):
 def about(request):
     return render(request, 'about.html')
 
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Your full name'
+    }))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'your.email@example.com'
+    }))
+    subject = forms.CharField(max_length=200, widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Subject of your message'
+    }))
+    message = forms.CharField(widget=forms.Textarea(attrs={
+        'class': 'form-control',
+        'placeholder': 'Your message...',
+        'rows': 5
+    }))
+
 def contact(request):
-    return render(request, 'contact.html')
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+            
+            # In a real application, you would send an email here
+            # send_mail(
+            #     f'Contact Form: {subject}',
+            #     f'From: {name} ({email})\n\n{message}',
+            #     email,
+            #     [settings.DEFAULT_FROM_EMAIL],
+            # )
+            
+            messages.success(request, 'Thank you for your message! We will get back to you soon.')
+            return redirect('contact')
+        else:
+            messages.error(request, 'Please correct the errors below.')
+    else:
+        form = ContactForm()
+    
+    return render(request, 'contact.html', {'form': form})
 
 def login_view(request):
     if request.method == 'POST':
@@ -38,7 +110,11 @@ def login_view(request):
     return render(request, 'login.html', {'form': form})
 
 def logout_view(request):
-    logout(request)
-    messages.info(request, "You have been logged out.")
-    return redirect('home')
+    if request.method == 'POST':
+        logout(request)
+        messages.success(request, "You have been successfully logged out. Thank you for using CarRental!")
+        return redirect('home')
+    else:
+        # If GET request, show confirmation page
+        return render(request, 'logout_confirm.html')
 

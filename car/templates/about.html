@@ -1,6 +1,229 @@
 {% extends 'base.html' %}
-{% block title %}About Us{% endblock %}
+{% load static %}
+{% block title %}About Us - CarRental{% endblock %}
+
 {% block content %}
-<h2>About CarRental</h2>
-<p>We provide quality car rentals at affordable prices. Choose from a wide range of vehicles to suit your needs.</p>
+<div class="container my-5">
+    <!-- Page Header -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-primary">About CarRental</h1>
+        <p class="lead text-muted">Your trusted partner in premium car rental services</p>
+    </div>
+
+    <!-- Company Story -->
+    <div class="row align-items-center mb-5">
+        <div class="col-lg-6">
+            <h2 class="h3 mb-4">Our Story</h2>
+            <p class="mb-4">
+                Founded in 2015, CarRental has been at the forefront of providing exceptional car rental services 
+                to customers worldwide. What started as a small family business with just 5 vehicles has grown 
+                into a trusted name in the automotive rental industry.
+            </p>
+            <p class="mb-4">
+                Our commitment to quality, safety, and customer satisfaction has earned us the trust of over 
+                50,000 customers. We believe that everyone deserves access to reliable, affordable, and 
+                well-maintained vehicles for their transportation needs.
+            </p>
+            <p>
+                Today, we continue to expand our fleet and services while maintaining our core values of 
+                integrity, reliability, and customer-first approach.
+            </p>
+        </div>
+        <div class="col-lg-6">
+            <div class="bg-light p-4 rounded-3">
+                <i class="fas fa-quote-left fa-2x text-primary mb-3"></i>
+                <blockquote class="blockquote">
+                    <p class="mb-4">"Our mission is to provide safe, reliable, and affordable car rental 
+                    solutions that exceed customer expectations and create lasting relationships."</p>
+                    <footer class="blockquote-footer">CEO & Founder, <cite title="Source Title">CarRental</cite></footer>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="stats-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="h3 fw-bold">CarRental by the Numbers</h2>
+                <p class="text-muted">Our achievements speak for themselves</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="stat-item">
+                        <span class="stat-number">50K+</span>
+                        <span class="stat-label">Happy Customers</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Vehicles in Fleet</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="stat-item">
+                        <span class="stat-number">25+</span>
+                        <span class="stat-label">Cities Served</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="stat-item">
+                        <span class="stat-number">8</span>
+                        <span class="stat-label">Years of Excellence</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="h3 text-center mb-5">Our Services</h2>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="feature-box h-100">
+                <div class="feature-icon">
+                    <i class="fas fa-car"></i>
+                </div>
+                <h4>Short-term Rentals</h4>
+                <p>Perfect for weekend trips, business meetings, or special occasions. Rent by the hour, day, or week.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="feature-box h-100">
+                <div class="feature-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h4>Long-term Leasing</h4>
+                <p>Cost-effective solutions for extended periods. Monthly and yearly packages with attractive discounts.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="feature-box h-100">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h4>Corporate Solutions</h4>
+                <p>Tailored packages for businesses with multiple vehicle needs and flexible payment options.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="feature-box h-100">
+                <div class="feature-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h4>One-way Rentals</h4>
+                <p>Pick up from one location and drop off at another. Perfect for road trips and relocations.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="feature-box h-100">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h4>Insurance Coverage</h4>
+                <p>Comprehensive insurance options to protect you and your journey with peace of mind.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="feature-box h-100">
+                <div class="feature-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h4>24/7 Roadside Assistance</h4>
+                <p>Round-the-clock support for emergencies, breakdowns, and any assistance you might need.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Values Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="h3 text-center mb-5">Our Values</h2>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="text-center">
+                <div class="feature-icon mx-auto mb-3" style="width: 60px; height: 60px; font-size: 1.5rem;">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h5>Customer First</h5>
+                <p>Every decision we make is centered around providing the best possible experience for our customers.</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="text-center">
+                <div class="feature-icon mx-auto mb-3" style="width: 60px; height: 60px; font-size: 1.5rem;">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h5>Integrity</h5>
+                <p>We operate with transparency, honesty, and ethical business practices in all our interactions.</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="text-center">
+                <div class="feature-icon mx-auto mb-3" style="width: 60px; height: 60px; font-size: 1.5rem;">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h5>Innovation</h5>
+                <p>We continuously improve our services and embrace new technologies to serve you better.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="h3 text-center mb-5">Meet Our Leadership Team</h2>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="text-center">
+                <div class="bg-light rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" 
+                     style="width: 120px; height: 120px;">
+                    <i class="fas fa-user fa-3x text-muted"></i>
+                </div>
+                <h5>John Smith</h5>
+                <p class="text-muted">CEO & Founder</p>
+                <p class="small">With over 15 years in the automotive industry, John leads our vision of revolutionizing car rentals.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="text-center">
+                <div class="bg-light rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" 
+                     style="width: 120px; height: 120px;">
+                    <i class="fas fa-user fa-3x text-muted"></i>
+                </div>
+                <h5>Sarah Johnson</h5>
+                <p class="text-muted">Chief Operations Officer</p>
+                <p class="small">Sarah ensures our operations run smoothly and our customers receive top-notch service every time.</p>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="text-center">
+                <div class="bg-light rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" 
+                     style="width: 120px; height: 120px;">
+                    <i class="fas fa-user fa-3x text-muted"></i>
+                </div>
+                <h5>Michael Chen</h5>
+                <p class="text-muted">Head of Technology</p>
+                <p class="small">Michael drives our digital transformation and ensures our platform remains cutting-edge.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center bg-light p-5 rounded-3">
+        <h3 class="mb-4">Ready to Experience the CarRental Difference?</h3>
+        <p class="lead mb-4">Join thousands of satisfied customers who trust us with their transportation needs.</p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a href="{% url 'car_list' %}" class="btn btn-custom btn-lg">
+                <i class="fas fa-car me-2"></i>Browse Our Fleet
+            </a>
+            <a href="{% url 'contact' %}" class="btn btn-outline-primary btn-lg">
+                <i class="fas fa-envelope me-2"></i>Contact Us
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -1,17 +1,311 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ car.name }} Details{% endblock %}
+{% block title %}{{ car.name }} - Car Details | CarRental{% endblock %}
+
 {% block content %}
-<div class="card">
-    {% if car.image %}
-    <img src="{{ car.image.url }}" class="card-img-top" alt="{{ car.name }}">
-    {% endif %}
-    <div class="card-body">
-        <h2>{{ car.name }}</h2>
-        <p>Type: {{ car.car_type }}</p>
-        <p>Price per day: ${{ car.price_per_day }}</p>
-        <a href="#" class="btn btn-success">Book Now</a>
+<div class="container my-5">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'car_list' %}">Cars</a></li>
+            <li class="breadcrumb-item active">{{ car.name }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Car Image -->
+        <div class="col-lg-8 mb-4">
+            <div class="position-relative">
+                {% if car.image %}
+                    <img src="{{ car.image.url }}" class="img-fluid rounded-3 w-100" alt="{{ car.name }}" 
+                         style="height: 400px; object-fit: cover;">
+                {% else %}
+                    <div class="bg-light rounded-3 d-flex align-items-center justify-content-center" 
+                         style="height: 400px;">
+                        <div class="text-center">
+                            <i class="fas fa-car fa-5x text-muted mb-3"></i>
+                            <h5 class="text-muted">No Image Available</h5>
+                        </div>
+                    </div>
+                {% endif %}
+                
+                <!-- Car Type Badge -->
+                <div class="position-absolute top-0 start-0 m-3">
+                    <span class="badge bg-primary fs-6 px-3 py-2">{{ car.car_type }}</span>
+                </div>
+                
+                <!-- Wishlist Button -->
+                <div class="position-absolute top-0 end-0 m-3">
+                    <button class="btn btn-light rounded-circle" onclick="toggleWishlist({{ car.id }})">
+                        <i class="fas fa-heart text-danger"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Car Features -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h4 class="mb-3">Vehicle Features</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center p-3 bg-light rounded-3">
+                                <i class="fas fa-users fa-2x text-primary me-3"></i>
+                                <div>
+                                    <h6 class="mb-0">Seating</h6>
+                                    <small class="text-muted">4-5 passengers</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center p-3 bg-light rounded-3">
+                                <i class="fas fa-cog fa-2x text-primary me-3"></i>
+                                <div>
+                                    <h6 class="mb-0">Transmission</h6>
+                                    <small class="text-muted">Automatic</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center p-3 bg-light rounded-3">
+                                <i class="fas fa-gas-pump fa-2x text-primary me-3"></i>
+                                <div>
+                                    <h6 class="mb-0">Fuel Type</h6>
+                                    <small class="text-muted">Gasoline</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center p-3 bg-light rounded-3">
+                                <i class="fas fa-suitcase fa-2x text-primary me-3"></i>
+                                <div>
+                                    <h6 class="mb-0">Luggage</h6>
+                                    <small class="text-muted">2-3 large bags</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Included Features -->
+            <div class="mt-4">
+                <h5 class="mb-3">What's Included</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Unlimited mileage</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Basic insurance coverage</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>24/7 roadside assistance</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Free cancellation (24h notice)</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>GPS navigation system</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Air conditioning</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Booking Panel -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-lg sticky-top" style="top: 20px;">
+                <div class="card-body p-4">
+                    <!-- Car Title -->
+                    <h3 class="mb-3">{{ car.name }}</h3>
+                    
+                    <!-- Rating (placeholder) -->
+                    <div class="mb-3">
+                        <div class="d-flex align-items-center">
+                            <div class="text-warning me-2">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <small class="text-muted">(4.8) 156 reviews</small>
+                        </div>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="mb-4">
+                        <div class="d-flex align-items-center">
+                            <h2 class="text-primary mb-0">${{ car.price_per_day }}</h2>
+                            <span class="text-muted ms-2">/ day</span>
+                        </div>
+                        <small class="text-muted">Final price shown at checkout</small>
+                    </div>
+
+                    <!-- Booking Form -->
+                    <form>
+                        <div class="mb-3">
+                            <label for="pickup_date" class="form-label">Pickup Date</label>
+                            <input type="date" class="form-control" id="pickup_date" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="return_date" class="form-label">Return Date</label>
+                            <input type="date" class="form-control" id="return_date" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pickup_location" class="form-label">Pickup Location</label>
+                            <select class="form-select" id="pickup_location" required>
+                                <option value="">Select location</option>
+                                <option value="downtown">Downtown Office</option>
+                                <option value="airport">Airport Terminal</option>
+                                <option value="mall">Shopping Mall</option>
+                                <option value="hotel">Hotel District</option>
+                            </select>
+                        </div>
+
+                        <!-- Total Calculation -->
+                        <div class="bg-light p-3 rounded-3 mb-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Price per day:</span>
+                                <span>${{ car.price_per_day }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Number of days:</span>
+                                <span id="total-days">1</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Subtotal:</span>
+                                <span id="subtotal">${{ car.price_per_day }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Taxes & fees:</span>
+                                <span id="taxes">$15.00</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between fw-bold">
+                                <span>Total:</span>
+                                <span id="total-price">${{ car.price_per_day|add:15 }}</span>
+                            </div>
+                        </div>
+
+                        <!-- Book Now Button -->
+                        <button type="submit" class="btn btn-custom w-100 btn-lg mb-3">
+                            <i class="fas fa-calendar-check me-2"></i>Book Now
+                        </button>
+                    </form>
+
+                    <!-- Additional Options -->
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-outline-primary" onclick="shareVehicle()">
+                            <i class="fas fa-share me-2"></i>Share this vehicle
+                        </button>
+                        <a href="{% url 'contact' %}" class="btn btn-outline-secondary">
+                            <i class="fas fa-question-circle me-2"></i>Have questions?
+                        </a>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="mt-4 pt-3 border-top text-center">
+                        <p class="small text-muted mb-2">Need help with your booking?</p>
+                        <p class="small">
+                            <i class="fas fa-phone me-1"></i>
+                            <a href="tel:+15551234567" class="text-decoration-none">+1 (555) 123-4567</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Similar Cars Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <h4 class="mb-4">Similar Vehicles</h4>
+            <div class="row">
+                <!-- This would be populated with similar cars in a real application -->
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="bg-light rounded-3 d-flex align-items-center justify-content-center mb-3" 
+                                 style="height: 150px;">
+                                <i class="fas fa-car fa-3x text-muted"></i>
+                            </div>
+                            <h6>Similar {{ car.car_type }}</h6>
+                            <p class="text-muted small">From $45/day</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+{% block extra_js %}
+<script>
+// Calculate total price based on dates
+function calculateTotal() {
+    const pickupDate = document.getElementById('pickup_date').value;
+    const returnDate = document.getElementById('return_date').value;
+    const pricePerDay = {{ car.price_per_day }};
+    
+    if (pickupDate && returnDate) {
+        const pickup = new Date(pickupDate);
+        const returnD = new Date(returnDate);
+        const timeDiff = returnD.getTime() - pickup.getTime();
+        const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+        
+        if (daysDiff > 0) {
+            const subtotal = daysDiff * pricePerDay;
+            const taxes = 15.00;
+            const total = subtotal + taxes;
+            
+            document.getElementById('total-days').textContent = daysDiff;
+            document.getElementById('subtotal').textContent = '$' + subtotal.toFixed(2);
+            document.getElementById('total-price').textContent = '$' + total.toFixed(2);
+        }
+    }
+}
+
+// Set minimum date to today
+function setMinDate() {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('pickup_date').min = today;
+    document.getElementById('return_date').min = today;
+}
+
+// Toggle wishlist
+function toggleWishlist(carId) {
+    alert('Wishlist functionality would be implemented here');
+}
+
+// Share vehicle
+function shareVehicle() {
+    if (navigator.share) {
+        navigator.share({
+            title: '{{ car.name }} - CarRental',
+            text: 'Check out this {{ car.car_type }} for ${{ car.price_per_day }}/day',
+            url: window.location.href
+        });
+    } else {
+        // Fallback to copy URL
+        navigator.clipboard.writeText(window.location.href);
+        alert('URL copied to clipboard!');
+    }
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+    setMinDate();
+    
+    // Add event listeners for date changes
+    document.getElementById('pickup_date').addEventListener('change', calculateTotal);
+    document.getElementById('return_date').addEventListener('change', calculateTotal);
+    
+    // Update return date minimum when pickup date changes
+    document.getElementById('pickup_date').addEventListener('change', function() {
+        document.getElementById('return_date').min = this.value;
+    });
+});
+</script>
+{% endblock %}
 {% endblock %}
