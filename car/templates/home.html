@@ -24,7 +24,7 @@
                     <div class="card-body">
                         <h5>{{ car.name }}</h5>
                         <p class="text-muted">{{ car.car_type }}</p>
-                        <p><strong>${{ car.price_per_day }}/day</strong></p>
+                        <p><strong>₹{{ car.price_per_day }}/day</strong></p>
                         <a href="{% url 'car_detail' car.id %}" class="btn btn-primary">Details</a>
                     </div>
                 </div>
