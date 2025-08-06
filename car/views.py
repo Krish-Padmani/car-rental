@@ -31,6 +31,8 @@ def login_view(request):
             login(request, user)
             messages.success(request, "Logged in successfully!")
             return redirect('home')
+        else:
+            messages.error(request, "Invalid username or password. Please try again.")
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
