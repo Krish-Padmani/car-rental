@@ -13,7 +13,7 @@
                 <h5 class="card-title">{{ car.name }}</h5>
                 <p class="card-text">Type: {{ car.car_type }}<br>Price per day: ${{ car.price_per_day }}</p>
                 <a href="{% url 'car_detail' car.id %}" class="btn btn-primary me-2">View Details</a>
-                <a href="{% url 'car_detail' car.id %}" class="btn btn-success">Book Now</a>
+                <a href="{% url 'book_car' car.id %}" class="btn btn-success">Book Now</a>
             </div>
         </div>
     </div>
