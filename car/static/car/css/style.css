@@ -266,8 +266,12 @@ body {
 
 /* Footer Styles */
 footer {
-    background: var(--primary-color) !important;
+    background: #001f4d !important;
     margin-top: auto;
+}
+
+.bg-navy {
+    background-color: #001f4d !important;
 }
 
 /* Responsive */
