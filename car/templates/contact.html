@@ -7,18 +7,17 @@
     <!-- Page Header -->
     <div class="text-center mb-5">
         <h1 class="display-4 fw-bold text-primary">Contact Us</h1>
-        <p class="lead text-muted">We're here to help with all your car rental needs</p>
+        <p class="lead text-muted">We're here to help with your car rental needs</p>
     </div>
 
     <div class="row">
         <!-- Contact Information -->
         <div class="col-lg-6 mb-5">
             <div class="contact-info">
-                <h3 class="mb-4"><i class="fas fa-info-circle me-2 text-primary"></i>Get in Touch</h3>
+                <h3 class="mb-4">Get in Touch</h3>
                 <p class="mb-4">
-                    Whether you have questions about our services, need help with a booking, or want to provide feedback, 
-                    we're always ready to assist you. Our customer service team is available 24/7 to ensure you have 
-                    the best possible experience.
+                    Have questions or need assistance? We're here to help! 
+                    Contact us using the information below or send us a message.
                 </p>
 
                 <!-- Contact Methods -->
@@ -29,8 +28,7 @@
                         </div>
                         <div>
                             <h6 class="mb-1">Phone</h6>
-                            <p class="mb-0 text-muted">+1 (555) 123-4567</p>
-                            <small class="text-muted">Available 24/7</small>
+                            <p class="mb-0">+1 (555) 123-4567</p>
                         </div>
                     </div>
 
@@ -40,8 +38,7 @@
                         </div>
                         <div>
                             <h6 class="mb-1">Email</h6>
-                            <p class="mb-0 text-muted">support@carrental.com</p>
-                            <small class="text-muted">Response within 24 hours</small>
+                            <p class="mb-0">support@carrental.com</p>
                         </div>
                     </div>
 
@@ -51,7 +48,7 @@
                         </div>
                         <div>
                             <h6 class="mb-1">Address</h6>
-                            <p class="mb-0 text-muted">123 Main Street<br>Downtown Business District<br>City, State 12345</p>
+                            <p class="mb-0">123 Main Street<br>City, State 12345</p>
                         </div>
                     </div>
 
@@ -61,22 +58,13 @@
                         </div>
                         <div>
                             <h6 class="mb-1">Business Hours</h6>
-                            <p class="mb-0 text-muted">
-                                Monday - Friday: 8:00 AM - 8:00 PM<br>
-                                Saturday: 9:00 AM - 6:00 PM<br>
-                                Sunday: 10:00 AM - 4:00 PM
+                            <p class="mb-0">
+                                Monday - Friday: 8:00 AM - 6:00 PM<br>
+                                Saturday: 9:00 AM - 4:00 PM<br>
+                                Sunday: Closed
                             </p>
                         </div>
                     </div>
-                </div>
-
-                <!-- Emergency Contact -->
-                <div class="bg-danger-subtle p-3 rounded-3 border border-danger-subtle">
-                    <h6 class="text-danger mb-2">
-                        <i class="fas fa-exclamation-triangle me-2"></i>Emergency Assistance
-                    </h6>
-                    <p class="mb-1"><strong>Emergency Hotline:</strong> +1 (555) 911-HELP</p>
-                    <small class="text-muted">For roadside assistance, accidents, or urgent help</small>
                 </div>
             </div>
         </div>
@@ -84,20 +72,20 @@
         <!-- Contact Form -->
         <div class="col-lg-6">
             <div class="contact-form">
-                <h3 class="mb-4"><i class="fas fa-paper-plane me-2 text-primary"></i>Send us a Message</h3>
+                <h3 class="mb-4">Send us a Message</h3>
                 
                 <form method="post">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="{{ form.name.id_for_label }}" class="form-label">Full Name *</label>
+                            <label for="{{ form.name.id_for_label }}" class="form-label">Full Name</label>
                             {{ form.name }}
                             {% if form.name.errors %}
                                 <div class="text-danger small mt-1">{{ form.name.errors.0 }}</div>
                             {% endif %}
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="{{ form.email.id_for_label }}" class="form-label">Email Address *</label>
+                            <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
                             {{ form.email }}
                             {% if form.email.errors %}
                                 <div class="text-danger small mt-1">{{ form.email.errors.0 }}</div>
@@ -106,7 +94,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="{{ form.subject.id_for_label }}" class="form-label">Subject *</label>
+                        <label for="{{ form.subject.id_for_label }}" class="form-label">Subject</label>
                         {{ form.subject }}
                         {% if form.subject.errors %}
                             <div class="text-danger small mt-1">{{ form.subject.errors.0 }}</div>
@@ -114,7 +102,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="{{ form.message.id_for_label }}" class="form-label">Message *</label>
+                        <label for="{{ form.message.id_for_label }}" class="form-label">Message</label>
                         {{ form.message }}
                         {% if form.message.errors %}
                             <div class="text-danger small mt-1">{{ form.message.errors.0 }}</div>
@@ -125,65 +113,25 @@
                         <i class="fas fa-paper-plane me-2"></i>Send Message
                     </button>
                 </form>
-
-                <div class="mt-4 text-center">
-                    <p class="small text-muted">
-                        <i class="fas fa-lock me-1"></i>
-                        Your information is secure and will never be shared with third parties.
-                    </p>
-                </div>
             </div>
         </div>
     </div>
 
-    <!-- Additional Information -->
-    <div class="row mt-5">
-        <div class="col-12">
-            <div class="bg-light p-4 rounded-3">
-                <h4 class="text-center mb-4">Frequently Asked Questions</h4>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <h6><i class="fas fa-question-circle me-2 text-primary"></i>What documents do I need to rent a car?</h6>
-                        <p class="small text-muted">You'll need a valid driver's license, credit card, and proof of insurance. International visitors may need an International Driving Permit.</p>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <h6><i class="fas fa-question-circle me-2 text-primary"></i>Can I modify or cancel my reservation?</h6>
-                        <p class="small text-muted">Yes, you can modify or cancel your reservation up to 24 hours before pickup without any fees through our website or by calling customer service.</p>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <h6><i class="fas fa-question-circle me-2 text-primary"></i>What is included in the rental price?</h6>
-                        <p class="small text-muted">Our rental prices include basic insurance, unlimited mileage within the rental area, and 24/7 roadside assistance.</p>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <h6><i class="fas fa-question-circle me-2 text-primary"></i>Do you offer one-way rentals?</h6>
-                        <p class="small text-muted">Yes, we offer one-way rentals between participating locations. Additional fees may apply depending on the pickup and drop-off locations.</p>
-                    </div>
+    <!-- Simple FAQ -->
+    <div class="mt-5">
+        <div class="bg-light p-4 rounded-3">
+            <h4 class="text-center mb-4">Common Questions</h4>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h6>What do I need to rent a car?</h6>
+                    <p class="small text-muted">Valid driver's license and credit card.</p>
                 </div>
-                <div class="text-center mt-3">
-                    <a href="#" class="btn btn-outline-primary">View All FAQs</a>
+                <div class="col-md-6 mb-3">
+                    <h6>Can I cancel my reservation?</h6>
+                    <p class="small text-muted">Yes, free cancellation up to 24 hours before pickup.</p>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Social Media -->
-    <div class="text-center mt-5">
-        <h5 class="mb-3">Follow Us on Social Media</h5>
-        <div class="d-flex justify-content-center gap-3">
-            <a href="#" class="btn btn-outline-primary btn-lg rounded-circle" style="width: 60px; height: 60px;">
-                <i class="fab fa-facebook fa-lg"></i>
-            </a>
-            <a href="#" class="btn btn-outline-info btn-lg rounded-circle" style="width: 60px; height: 60px;">
-                <i class="fab fa-twitter fa-lg"></i>
-            </a>
-            <a href="#" class="btn btn-outline-danger btn-lg rounded-circle" style="width: 60px; height: 60px;">
-                <i class="fab fa-instagram fa-lg"></i>
-            </a>
-            <a href="#" class="btn btn-outline-primary btn-lg rounded-circle" style="width: 60px; height: 60px;">
-                <i class="fab fa-linkedin fa-lg"></i>
-            </a>
-        </div>
-        <p class="text-muted mt-3">Stay updated with our latest offers and news!</p>
     </div>
 </div>
 {% endblock %}
