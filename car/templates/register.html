@@ -18,11 +18,11 @@
             </div>
         {% endif %}
         {{ form.username.label_tag }}
-        {{ form.username|add_class:'form-control mb-3' }}
+        <input type="text" name="username" class="form-control mb-3" id="id_username" required>
         {{ form.password1.label_tag }}
-        {{ form.password1|add_class:'form-control mb-3' }}
+        <input type="password" name="password1" class="form-control mb-3" id="id_password1" required>
         {{ form.password2.label_tag }}
-        {{ form.password2|add_class:'form-control mb-3' }}
+        <input type="password" name="password2" class="form-control mb-3" id="id_password2" required>
         <button type="submit" class="btn btn-success w-100">Register</button>
     </form>
 </div>
