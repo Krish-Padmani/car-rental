@@ -1,21 +1,28 @@
 /* Custom Car Rental Styles */
 
 :root {
-    --primary-color: #2c3e50;
-    --secondary-color: #3498db;
+    --primary-color: #001f4d; /* navy blue */
+    --secondary-color: #001f4d; /* navy blue */
     --accent-color: #e74c3c;
     --success-color: #27ae60;
     --warning-color: #f39c12;
-    --light-bg: #ecf0f1;
-    --dark-text: #2c3e50;
-    --light-text: #7f8c8d;
+    --light-bg: #f5f5dc; /* beige */
+    --dark-text: #001f4d; /* navy blue */
+    --light-text: #f5f5dc; /* beige */
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: var(--dark-text);
-    background-color: #f8f9fa;
+    background-color: var(--light-bg);
+}
+
+.bg-navy {
+    background-color: #001f4d !important;
+}
+.text-beige {
+    color: #f5f5dc !important;
 }
 
 /* Hero Section */
@@ -138,7 +145,7 @@ body {
 /* Features Section */
 .features-section {
     padding: 80px 0;
-    background: white;
+    background: var(--light-bg);
 }
 
 .feature-icon {
@@ -194,7 +201,7 @@ body {
 
 /* Contact Page Styles */
 .contact-info {
-    background: white;
+    background: var(--light-bg);
     padding: 40px;
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.08);
@@ -202,7 +209,7 @@ body {
 }
 
 .contact-form {
-    background: white;
+    background: var(--light-bg);
     padding: 40px;
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.08);
@@ -223,7 +230,7 @@ body {
 
 /* Filter Styles */
 .filter-section {
-    background: white;
+    background: var(--light-bg);
     padding: 30px;
     border-radius: 15px;
     margin-bottom: 30px;
@@ -266,8 +273,9 @@ body {
 
 /* Footer Styles */
 footer {
-    background: var(--primary-color) !important;
+    background: #001f4d !important;
     margin-top: auto;
+    color: #f5f5dc !important;
 }
 
 /* Responsive */
